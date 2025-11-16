@@ -2,7 +2,7 @@ from setup import *
 import settings as stg
 import time
 
-
+play_music("veridisquo")
 
 #Etape qui ammène le bras jusqu'au capteur 
 def step1() -> bool:
