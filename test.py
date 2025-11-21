@@ -2,31 +2,30 @@ from setup import *
 import settings as stg
 import time
 
-play_music("veridisquo")
+#play_music("veridisquo")
 
-#Etape qui ammène le bras jusqu'au capteur 
+# Etape qui ammène le bras jusqu'au capteur 
 def step1() -> bool:
-    motor1.set_speed(stg.MOTOR_SPEED_TO_SENSOR)
+    motor1.set_speed(stg.MOTOR_SPEED_TO_SENSOR * stg.SENS_MOTEUR)
     while sensor26.get_value() >= stg.BW_SENSOR_CHANGE_VALUE:
         print(sensor26.get_value())
         time.sleep(0.01)
-    motor1.set_speed(0)
     return True
 
 def step2() -> bool:
     motor_speed = 50
-    motor1.set_speed(motor_speed)
-    time.sleep(1)
+    motor1.set_speed(motor_speed * stg.SENS_MOTEUR)
     
     while motor_speed < 100:
-        motor1.set_speed(motor_speed)
+        motor1.set_speed(motor_speed * stg.SENS_MOTEUR)
         motor_speed += 1
-        time.sleep(0.01)
+        time.sleep(0.005)
         print(motor_speed)
 
     return True
 
 def step3() -> bool:
+    time.sleep(0.5)
     while sensor26.get_value() >= stg.BW_SENSOR_CHANGE_VALUE:
         time.sleep(0.01)
     servo2.set_angle(stg.STOP_SERVO_END_ANGLE)
