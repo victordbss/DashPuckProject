@@ -2,6 +2,13 @@ import wumons
 import board 
 import digitalio
 
+from wumons_i2c.dfr_urm09 import DFRobot_URM09
+
+
+# Connect the distance sensor (distance_sensor.get_distance())
+distance_sensor = DFRobot_URM09(wumons.i2c)
+
+
 # Init LED (led.value = True, False)
 led4 = digitalio.DigitalInOut(board.GP4)
 led4.direction = digitalio.Direction.OUTPUT

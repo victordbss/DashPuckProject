@@ -1,16 +1,24 @@
 # Code qui gère tout les paramètres de la machine (variable) et le cablage
 
 # Motor 1 => Moteur qui fait tourner le bras principal
+SENS_MOTEUR = -1 #1 ou -1
+MAX_SPEED = 90
 
 # Moteur 2 => Moteur qui fait tourner toute la machine
 # Sensor 26 => Capteur qui détecte le passage du bras robotique
+BW_SENSOR_CHANGE_VALUE = 20000 # Valeur du capteur blanc et noir quand il détecte le passage du bras robotique
+
 # Servo 2 => Servo moteur qui bloque le bras (petit)
 # Sensor 27 => Bouton qui lance le test
 
+#Capteur ultrason (port i2c)
+DISTANCE_SENSOR_DETECT_VALUE = 10 # Valeur à laquelle le capteur ultrason détecte le passage du bras robotique
 
-SENS_MOTEUR = -1 #1 ou -1
+#Etape 1 : approche du bras jusqu'au capteur
 MOTOR_SPEED_TO_SENSOR = 60 # Vitesse du moteur qui tient le bras jusqu'au capteur (étape1)
-BW_SENSOR_CHANGE_VALUE = 20000 # Valeur du capteur blanc et noir quand il détecte le passage du bras robotique
+TIME_FROM_DISTANCE_SENSOR_TO_HOLE = 0.3 # Temps que met le bras pour passer du passage du capteur de distance j'usqu'à l'endroit ou tombe les palais
+
+
 MAX_SPEED = 90
 
 ANGLE_MOTOR2_SPEED = 70 # Vitesse du moteur qui fait tourner la machine
