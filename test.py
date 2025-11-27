@@ -16,10 +16,10 @@ def step2() -> bool:
     motor_speed = 50
     motor1.set_speed(motor_speed * stg.SENS_MOTEUR)
     
-    while motor_speed < 100:
+    while motor_speed < 80:
         motor1.set_speed(motor_speed * stg.SENS_MOTEUR)
         motor_speed += 1
-        time.sleep(0.005)
+        time.sleep(0.01)
         print(motor_speed)
 
     return True
@@ -34,13 +34,38 @@ def step3() -> bool:
     time.sleep(1)
     servo2.set_angle(stg.STOP_SERVO_START_ANGLE)
 
+def launch():
+    if step1():
+        print("step 1 done")
+        time.sleep(0.3)
+        if step2():
+            print("step 2 done")
+            step3()
+
+def rotate(sens : int = 1):
+    motor2.set_speed(stg.ANGLE_MOTOR2_SPEED * sens)
+    time.sleep(stg.TIME_TO_ANGLE)
+    motor2.set_speed(0)
+
+
+
 while True:
-    if sensor27.get_value() <= stg.BUTTON_SENSOR_VALUE:
-        if step1():
-            print("done")
-            time.sleep(1)
-            if step2():
-                print("done")
-                step3()
+    user_input = input("Action :")
+    if user_input == "launch":
+        launch()
+    elif user_input == "right":
+        rotate(stg.SENS_MOTEUR)
+    elif user_input == "left":
+        rotate(-stg.SENS_MOTEUR)
+    elif user_input == "test_servo":
+        angle = input("angle :")
+        servo2.set_angle(int(angle))
+        time.sleep(1)
+    elif user_input == "test_sensor":
+        while True:
+            print(sensor26.get_value())
+            time.sleep(0.005)
+            if sensor26.get_value() <= stg.BW_SENSOR_CHANGE_VALUE:
+                print("detect")
 
     time.sleep(0.5)
