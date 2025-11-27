@@ -1,9 +1,11 @@
 import wumons
 import board 
 import digitalio
-
+import math
 from wumons_i2c.dfr_urm09 import DFRobot_URM09
 
+def speed_fonction(x : int) -> int:
+    return int((1 / (0.95 + math.exp(-0.015 * x)))*100)
 
 # Connect the distance sensor (distance_sensor.get_distance())
 distance_sensor = DFRobot_URM09(wumons.i2c)
