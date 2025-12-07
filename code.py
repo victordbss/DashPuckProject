@@ -4,6 +4,7 @@ import time
 
 #play_music("veridisquo")
 
+auto_mode = False
 
 #Etape qui ammène le bras jusqu'au capteur 
 def step1() -> bool:
@@ -50,8 +51,39 @@ def rotate(sens : int = 1):
     motor2.set_speed(0)
 
 
-
 while True:
+    led4.value = auto_mode
+
+    # Bouton qui change de mode
+    if not button5.value:
+        # Ajout d'un son
+        auto_mode = not auto_mode
+    
+    # Bouton qui fait tourner la machine à droite
+    if not auto_mode and (not button6.value or not button7.value):
+        if not button6.value:
+            motor2.set_speed(stg.ANGLE_MOTOR2_SPEED)
+        else:
+            motor2.set_speed(stg.ANGLE_MOTOR2_SPEED * -1)
+    else:
+        motor2.set_speed(0)
+    
+    if not button8.value:
+        if not auto_mode:
+            launch()
+        else:
+            while True:
+                if sensor26.value < stg.BW_SENSOR_CHANGE_VALUE:
+                    launch()
+                     # Ajuster le temps entre chaque tir
+                else:
+                    break
+            time.sleep(0.5)
+    
+    time.sleep(0.05)
+    
+
+""" while True:
     user_input = input("Action :")
     if user_input == "launch":
         launch()
@@ -74,4 +106,4 @@ while True:
             print(distance_sensor.get_distance())
             time.sleep(0.05)
 
-    time.sleep(0.5)
+    time.sleep(0.5) """

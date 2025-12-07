@@ -5,11 +5,17 @@ SENS_MOTEUR = -1 #1 ou -1
 MAX_SPEED = 90
 
 # Moteur 2 => Moteur qui fait tourner toute la machine
-# Sensor 26 => Capteur qui détecte le passage du bras robotique
-BW_SENSOR_CHANGE_VALUE = 20000 # Valeur du capteur blanc et noir quand il détecte le passage du bras robotique
+# Sensor 26 => Capteur qui détecte si le réservoir est vide
+BW_SENSOR_CHANGE_VALUE = 20000 # Valeur du capteur blanc et noir quand qu'il n'y a plus de palais
 
 # Servo 2 => Servo moteur qui bloque le bras (petit)
-# Sensor 27 => Bouton qui lance le test
+
+# Led 4 => Led qui s'allume quand le mode auto est activé
+# Button 5 => bouton qui change de mode
+# Button 6 => bouton qui fait tourner la machine à droite
+# Button 7 => bouton qui fait tourner la machine à gauche
+# Button 8 => bouton qui active la séquence de lancement
+
 
 #Capteur ultrason (port i2c)
 DISTANCE_SENSOR_DETECT_VALUE = 10 # Valeur à laquelle le capteur ultrason détecte le passage du bras robotique
