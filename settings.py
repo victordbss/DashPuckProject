@@ -1,38 +1,46 @@
-# Code qui gère tout les paramètres de la machine (variable) et le cablage
+# Code qui gère tous les paramètres de la machine (variables) et le câblage logique
 
-# Motor 1 => Moteur qui fait tourner le bras principal
-SENS_MOTEUR = -1 #1 ou -1
-MAX_SPEED = 90
+# ------------------------
+# MOTEUR 1 : moteur du bras de tir
+# ------------------------
+MOTOR1_DIRECTION = -1      # +1 ou -1 selon le câblage
+MOTOR1_MAX_SPEED = 90      # Vitesse max utilisée dans la rampe d'accélération
 
-# Moteur 2 => Moteur qui fait tourner toute la machine
-# Sensor 26 => Capteur qui détecte si le réservoir est vide
-BW_SENSOR_CHANGE_VALUE = 20000 # Valeur du capteur blanc et noir quand qu'il n'y a plus de palais
+# ------------------------
+# MOTEUR 2 : rotation de la machine (plateforme)
+# ------------------------
+ROTATION_MOTOR_SPEED = 70  # Vitesse du moteur qui fait tourner la machine
+ROTATION_DIRECTION_CW = 1  # Sens horaire (ClockWise)
+TIME_TO_ROTATE_SECTOR = 1  # Durée pour atteindre l'angle désiré (en s)
 
-# Servo 2 => Servo moteur qui bloque le bras (petit)
+# ------------------------
+# CAPTEUR RÉSERVOIR (sensor26)
+# ------------------------
+# Capteur qui détecte si le réservoir est vide (noir/blanc)
+RESERVOIR_EMPTY_THRESHOLD = 20000  # Valeur au-dessus de laquelle on considère qu'il n'y a plus de palais
 
-# Led 4 => Led qui s'allume quand le mode auto est activé
+# ------------------------
+# CAPTEUR ULTRASON (distance_sensor, port I2C)
+# ------------------------
+DISTANCE_SENSOR_DETECT_VALUE = 10  # Distance à laquelle le capteur détecte le passage du bras
 
-# Button 5 => bouton qui change de mode
-# Button 6 => bouton qui fait tourner la machine à droite
-# Button 7 => bouton qui fait tourner la machine à gauche
-# Button 8 => bouton qui active la séquence de lancement
+# ------------------------
+# ÉTAPE 1 : approche du bras jusqu'au capteur de distance
+# ------------------------
+MOTOR1_APPROACH_SPEED = 60               # Vitesse du moteur pendant l'approche
+TIME_FROM_DISTANCE_SENSOR_TO_HOLE = 0.3  # Temps entre le capteur et la position de chute des palais
 
+# ------------------------
+# CAPTEUR NOIR/BLANC + SERVO DE BLOCAGE
+# ------------------------
+BUTTON_SENSOR_MIN_VALUE = 10000     # Valeur minimale pour considérer qu'il n'y a pas d'appui sur le bouton
+TIME_FROM_SENSOR_TO_SERVO = 0.15    # Temps pour que le bras passe du capteur BW au servo qui le stoppe
 
-#Capteur ultrason (port i2c)
-DISTANCE_SENSOR_DETECT_VALUE = 10 # Valeur à laquelle le capteur ultrason détecte le passage du bras robotique
+STOP_SERVO_OPEN_ANGLE = 180         # Angle où le servo bloqueur NE bloque PAS le bras
+STOP_SERVO_BLOCK_ANGLE = 120        # Angle où le servo bloqueur bloque le bras
 
-#Etape 1 : approche du bras jusqu'au capteur
-MOTOR_SPEED_TO_SENSOR = 60 # Vitesse du moteur qui tient le bras jusqu'au capteur (étape1)
-TIME_FROM_DISTANCE_SENSOR_TO_HOLE = 0.3 # Temps que met le bras pour passer du passage du capteur de distance j'usqu'à l'endroit ou tombe les palais
-
-
-MAX_SPEED = 90
-
-ANGLE_MOTOR2_SPEED = 70 # Vitesse du moteur qui fait tourner la machine
-CLOCKWISE_ANGLE = 1 # Valeur qui gère le sens du moteur qui fait tourner la machine 
-TIME_TO_ANGLE = 1 # Temps qu'il faut pour atteindre l'angle désirer
-BUTTON_SENSOR_VALUE = 10000 # Valeur minimale qui ne détecte pas un appui sur le bouton
-TIME_FROM_SENSOR_TO_SERVO = 0.15 # Temps que met le bras robotique à passer du capteur bw au servo qui le stoppe
-
-STOP_SERVO_START_ANGLE = 180 # Angle du servo moteur bloqueur pour lequel il ne stoppe pas le chemin du bras robotique
-STOP_SERVO_END_ANGLE = 120 # Angle du servo moteur bloqueur pour lequel il stoppe le bras robotique
+# ------------------------
+# SERVO POUSSEUR (réservoir → bras)
+# ------------------------
+PUSH_SERVO_REST_ANGLE = 0           # Position de repos
+PUSH_SERVO_PUSH_ANGLE = 180         # Position qui pousse un palais dans le système
