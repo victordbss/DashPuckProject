@@ -5,6 +5,7 @@ import time
 #play_music("veridisquo")
 
 auto_mode = False
+release = True
 
 #Etape qui ammène le bras jusqu'au capteur 
 def step1() -> bool:
@@ -14,16 +15,18 @@ def step1() -> bool:
         time.sleep(0.01)
     return True
 
+
+
 def step2() -> bool:
     x_value = 0
     motor_speed = 50
     while motor_speed < stg.MAX_SPEED:
-        motor_speed = speed_fonction(x_value) * stg.SENS_MOTEUR
-        motor1.set_speed(motor_speed)
+        motor_speed = speed_fonction(x_value)
+        motor1.set_speed(motor_speed * stg.SENS_MOTEUR)
         x_value += 1
         time.sleep(0.01)
         print(motor_speed)
-    motor1.set_speed(100)
+    motor1.set_speed(100 * stg.SENS_MOTEUR)
     return True
 
 def step3() -> bool:
@@ -35,6 +38,7 @@ def step3() -> bool:
     motor1.set_speed(0)
     time.sleep(1)
     servo2.set_angle(stg.STOP_SERVO_START_ANGLE)
+    
 
 def launch():
     if step1():
@@ -55,9 +59,16 @@ while True:
     led4.value = auto_mode
 
     # Bouton qui change de mode
-    if not button5.value:
+    if not button5.value and release:
         # Ajout d'un son
         auto_mode = not auto_mode
+        play_music("jump_up")
+        release = False
+    else:
+        time.sleep(0.2)
+        
+        release = True
+        
     
     # Bouton qui fait tourner la machine à droite
     if not auto_mode and (not button6.value or not button7.value):

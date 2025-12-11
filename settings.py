@@ -11,6 +11,7 @@ BW_SENSOR_CHANGE_VALUE = 20000 # Valeur du capteur blanc et noir quand qu'il n'y
 # Servo 2 => Servo moteur qui bloque le bras (petit)
 
 # Led 4 => Led qui s'allume quand le mode auto est activé
+
 # Button 5 => bouton qui change de mode
 # Button 6 => bouton qui fait tourner la machine à droite
 # Button 7 => bouton qui fait tourner la machine à gauche
