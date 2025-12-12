@@ -22,10 +22,14 @@ def load_puck_from_hopper() -> bool:
     Amène un palais du réservoir dans le système d'expulsion
     en actionnant le servo pousseur (servo3).
     """
-    servo3.set_angle(stg.PUSH_SERVO_REST_ANGLE)
+    value = True
+    servo0.set_angle(stg.PUSH_SERVO_REST_ANGLE)
     time.sleep(0.5)
-    servo3.set_angle(stg.PUSH_SERVO_PUSH_ANGLE)
-    return True
+    print("reserv value : " + str(reservoir_sensor.get_value()))
+    if reservoir_sensor.get_value() < stg.RESERVOIR_EMPTY_THRESHOLD:
+        value = False
+    servo0.set_angle(stg.PUSH_SERVO_PUSH_ANGLE)
+    return value
 
 
 def move_arm_to_distance_sensor() -> bool:
@@ -89,7 +93,7 @@ def stop_arm_with_servo_and_reset() -> None:
     servo2.set_angle(stg.STOP_SERVO_OPEN_ANGLE)
 
 
-def launch_one_puck():
+def launch_one_puck() -> bool:
     """
     Exécute la séquence complète :
     1. Charger un palais depuis le réservoir.
@@ -98,12 +102,17 @@ def launch_one_puck():
     4. Stopper et réinitialiser le système.
     """
     if load_puck_from_hopper():
+        time.sleep(1)
+
         if move_arm_to_distance_sensor():
             print("Étape 1 terminée")
 
             if accelerate_arm_to_throw_speed():
                 print("Étape 2 terminée")
                 stop_arm_with_servo_and_reset()
+                return True
+    else:
+        return False
 
 
 def rotate_platform(direction: int = 1):
@@ -180,8 +189,9 @@ def handle_launch_button():
         # Mode automatique :
         # tant que le capteur du réservoir indique qu'il reste des palais,
         # on enchaîne les tirs.
-        while reservoir_sensor.value < stg.RESERVOIR_EMPTY_THRESHOLD:
-            launch_one_puck()
+        while True:
+            if not launch_one_puck():
+                break
             # Ajouter ici un délai si nécessaire entre chaque tir
         time.sleep(0.5)
 

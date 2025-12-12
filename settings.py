@@ -42,5 +42,5 @@ STOP_SERVO_BLOCK_ANGLE = 120        # Angle où le servo bloqueur bloque le bras
 # ------------------------
 # SERVO POUSSEUR (réservoir → bras)
 # ------------------------
-PUSH_SERVO_REST_ANGLE = 0           # Position de repos
-PUSH_SERVO_PUSH_ANGLE = 180         # Position qui pousse un palais dans le système
+PUSH_SERVO_REST_ANGLE = 180           # Position de repos
+PUSH_SERVO_PUSH_ANGLE = 90         # Position qui pousse un palais dans le système
