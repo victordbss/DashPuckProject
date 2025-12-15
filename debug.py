@@ -22,16 +22,14 @@ def load_puck_from_hopper() -> bool:
     Amène un palais du réservoir dans le système d'expulsion
     en actionnant le servo pousseur (servo3).
     """
-
+    value = True
+    servo0.set_angle(stg.PUSH_SERVO_REST_ANGLE)
+    time.sleep(0.5)
     print("reserv value : " + str(reservoir_sensor.get_value()))
     if reservoir_sensor.get_value() < stg.RESERVOIR_EMPTY_THRESHOLD:
-        
-        return False
-    servo3.set_angle(stg.PUSH_SERVO_PUSH_ANGLE)
-    time.sleep(0.5)
-
-    servo3.set_angle(stg.PUSH_SERVO_REST_ANGLE)
-    return True
+        value = False
+    servo0.set_angle(stg.PUSH_SERVO_PUSH_ANGLE)
+    return value
 
 
 def move_arm_to_distance_sensor() -> bool:
@@ -198,11 +196,9 @@ def handle_launch_button():
         time.sleep(0.5)
 
 
-# ------------------------
+""" # ------------------------
 # Boucle principale
 # ------------------------
-servo3.set_angle(stg.PUSH_SERVO_REST_ANGLE)
-time.sleep(0.3)
 
 while True:
     # LED qui indique le mode auto (allumée = auto)
@@ -219,9 +215,9 @@ while True:
 
     # Petit délai pour éviter de saturer le CPU
     time.sleep(MAIN_LOOP_DELAY)
+ """
 
 
-"""
 # ------------------------
 # Mode "debug" via la console (à activer si besoin)
 # ------------------------
@@ -253,6 +249,10 @@ while True:
         while True:
             print(distance_sensor.get_distance())
             time.sleep(0.05)
+    elif user_input == "servo3":
+        while True:
+            angle = input("angle :")
+            servo3.set_angle(int(angle))
+            time.sleep(0.5)
 
     time.sleep(0.5)
-"""
