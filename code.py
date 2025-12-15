@@ -24,7 +24,7 @@ def load_puck_from_hopper() -> bool:
     """
 
     print("reserv value : " + str(reservoir_sensor.get_value()))
-    if reservoir_sensor.get_value() < stg.RESERVOIR_EMPTY_THRESHOLD:
+    if reservoir_sensor.get_value() > (reservoir_empty_threshold * (80/100)):
         
         return False
     servo3.set_angle(stg.PUSH_SERVO_PUSH_ANGLE)
@@ -203,6 +203,7 @@ def handle_launch_button():
 # ------------------------
 servo3.set_angle(stg.PUSH_SERVO_REST_ANGLE)
 time.sleep(0.3)
+reservoir_empty_threshold = reservoir_sensor.get_value()
 
 while True:
     # LED qui indique le mode auto (allumée = auto)

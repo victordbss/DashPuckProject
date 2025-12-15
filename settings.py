@@ -17,7 +17,7 @@ TIME_TO_ROTATE_SECTOR = 1  # Durée pour atteindre l'angle désiré (en s)
 # CAPTEUR RÉSERVOIR (sensor26)
 # ------------------------
 # Capteur qui détecte si le réservoir est vide (noir/blanc)
-RESERVOIR_EMPTY_THRESHOLD = 10000  # Valeur au-dessus de laquelle on considère qu'il n'y a plus de palais
+RESERVOIR_EMPTY_THRESHOLD = 20000  # Valeur au-dessus de laquelle on considère qu'il n'y a plus de palais
 
 # ------------------------
 # CAPTEUR ULTRASON (distance_sensor, port I2C)
@@ -42,5 +42,5 @@ STOP_SERVO_BLOCK_ANGLE = 120        # Angle où le servo bloqueur bloque le bras
 # ------------------------
 # SERVO POUSSEUR (réservoir → bras)
 # ------------------------
-PUSH_SERVO_REST_ANGLE = 110           # Position de repos
+PUSH_SERVO_REST_ANGLE = 100           # Position de repos
 PUSH_SERVO_PUSH_ANGLE = 0         # Position qui pousse un palais dans le système
