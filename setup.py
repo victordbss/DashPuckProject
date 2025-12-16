@@ -27,12 +27,9 @@ distance_sensor = DFRobot_URM09(wumons.i2c)
 # led4.value = True / False
 led4 = digitalio.DigitalInOut(board.GP4)
 led4.direction = digitalio.Direction.OUTPUT
-deco_led1 = digitalio.DigitalInOut(board.GP8)
-deco_led1 = digitalio.Direction.OUTPUT
-deco_led2 = digitalio.DigitalInOut(board.GP9)
-deco_led2 = digitalio.Direction.OUTPUT
-deco_led3 = digitalio.DigitalInOut(board.GP10)
-deco_led3 = digitalio.Direction.OUTPUT
+deco_led = digitalio.DigitalInOut(board.GP1)
+deco_led.direction = digitalio.Direction.OUTPUT
+
 
 
 
@@ -60,8 +57,7 @@ button8.pull = digitalio.Pull.UP
 # Capteurs analogiques (réservoir, etc.)
 # ------------------------
 reservoir_sensor = wumons.Sensor(wumons.board.GP26)  # Anciennement sensor26
-sensor27 = wumons.Sensor(wumons.board.GP27)
-sensor28 = wumons.Sensor(wumons.board.GP28)
+
 
 # ------------------------
 # Boutons Wukong (facile à lire via .is_pressed())
@@ -85,11 +81,8 @@ motor4 = wumons.DCMotor(wumons.board.GP12, wumons.board.GP13)
 # Servo-moteurs
 # ------------------------
 # Grands servos
-servo0 = wumons.Servo(wumons.board.GP0)
-servo0.set_pulse_width_range(300, 1900)
 
-servo1 = wumons.Servo(wumons.board.GP1)
-servo1.set_pulse_width_range(300, 1900)
+
 
 # Petits servos
 servo2 = wumons.Servo(wumons.board.GP2)

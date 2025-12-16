@@ -1,9 +1,10 @@
 from setup import *  
 import settings as stg
 import time
+import random
 
 
-deco_led_list = [deco_led1, deco_led2, deco_led3]
+
 current_deco_index = 0
 
 # play_music("veridisquo") 
@@ -21,11 +22,14 @@ MAIN_LOOP_DELAY = 0.05       # Délai de base de la boucle principale (en s)
 # Fonctions de séquence de tir
 # ------------------------
 
-def deco_led():
-    for i, v in enumerate(stg.LED_PATERN[current_deco_index]):
-        deco_led_list[i].value = True if v == 1 else False
-    
-    current_deco_index = (current_deco_index + 1) % len(stg.LED_PATERN)
+def deco_led_setup():
+    deco_led.value = False if random.randint(0, 3) == 1 else True
+
+    for i in range(2):
+        if random.randint(0, 4) == 2:
+            set_led_color(led_index=i)
+        else:
+            set_led_color(led_index=i, rgb_color=stg.COLORS[random.randint(0, len(stg.COLORS) - 1)])
     
         
 
@@ -224,8 +228,15 @@ reservoir_empty_threshold_2 = reservoir_sensor.get_value()
 reservoir_empty_threshold = (reservoir_empty_threshold_1 + reservoir_empty_threshold_2) / 2
 print("reservoir_empty_treshold :" + str(reservoir_empty_threshold))
 play_music("jump_up")
+last_led_time = time.time()
 
 while True:
+    current_time = time.time()
+
+    if current_time - last_led_time >= stg.LED_LOOP_DELAY:
+        deco_led_setup()
+        last_led_time = time.time()
+
     # LED qui indique le mode auto (allumée = auto)
     led4.value = auto_mode_enabled
 
