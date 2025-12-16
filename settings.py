@@ -44,3 +44,5 @@ STOP_SERVO_BLOCK_ANGLE = 120        # Angle où le servo bloqueur bloque le bras
 # ------------------------
 PUSH_SERVO_REST_ANGLE = 100           # Position de repos
 PUSH_SERVO_PUSH_ANGLE = 0         # Position qui pousse un palais dans le système
+
+LED_PATERN = [(1,0,0), (0,1,0), (0,0,1)]

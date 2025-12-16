@@ -2,6 +2,10 @@ from setup import *
 import settings as stg
 import time
 
+
+deco_led_list = [deco_led1, deco_led2, deco_led3]
+current_deco_index = 0
+
 # play_music("veridisquo") 
 
 # ------------------------
@@ -16,6 +20,14 @@ MAIN_LOOP_DELAY = 0.05       # Délai de base de la boucle principale (en s)
 # ------------------------
 # Fonctions de séquence de tir
 # ------------------------
+
+def deco_led():
+    for i, v in enumerate(stg.LED_PATERN[current_deco_index]):
+        deco_led_list[i].value = True if v == 1 else False
+    
+    current_deco_index = (current_deco_index + 1) % len(stg.LED_PATERN)
+    
+        
 
 def load_puck_from_hopper() -> bool:
     """
@@ -143,7 +155,10 @@ def handle_mode_button():
     # Bouton pressé (signal bas) et bouton considéré comme relâché auparavant
     if not button5.value and mode_button_released:
         auto_mode_enabled = not auto_mode_enabled
-        play_music("jump_up")
+        if auto_mode_enabled:
+            play_music("power_up")
+        else:
+            play_music("power_down")
         mode_button_released = False
 
     # Quand le bouton est relâché (signal haut), on autorise un nouveau toggle
@@ -204,10 +219,11 @@ def handle_launch_button():
 reservoir_empty_threshold_1 = reservoir_sensor.get_value()
 servo3.set_angle(stg.PUSH_SERVO_REST_ANGLE)
 servo2.set_angle(stg.STOP_SERVO_OPEN_ANGLE)
-time.sleep(0.3)
+time.sleep(0.2)
 reservoir_empty_threshold_2 = reservoir_sensor.get_value()
 reservoir_empty_threshold = (reservoir_empty_threshold_1 + reservoir_empty_threshold_2) / 2
 print("reservoir_empty_treshold :" + str(reservoir_empty_threshold))
+play_music("jump_up")
 
 while True:
     # LED qui indique le mode auto (allumée = auto)

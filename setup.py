@@ -27,6 +27,14 @@ distance_sensor = DFRobot_URM09(wumons.i2c)
 # led4.value = True / False
 led4 = digitalio.DigitalInOut(board.GP4)
 led4.direction = digitalio.Direction.OUTPUT
+deco_led1 = digitalio.DigitalInOut(board.GP8)
+deco_led1 = digitalio.Direction.OUTPUT
+deco_led2 = digitalio.DigitalInOut(board.GP9)
+deco_led2 = digitalio.Direction.OUTPUT
+deco_led3 = digitalio.DigitalInOut(board.GP10)
+deco_led3 = digitalio.Direction.OUTPUT
+
+
 
 # ------------------------
 # Boutons (en digitalio)
