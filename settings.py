@@ -34,7 +34,7 @@ TIME_FROM_DISTANCE_SENSOR_TO_HOLE = 0.3  # Temps entre le capteur et la position
 # CAPTEUR NOIR/BLANC + SERVO DE BLOCAGE
 # ------------------------
 BUTTON_SENSOR_MIN_VALUE = 10000     # Valeur minimale pour considérer qu'il n'y a pas d'appui sur le bouton
-TIME_FROM_SENSOR_TO_SERVO = 0.15    # Temps pour que le bras passe du capteur BW au servo qui le stoppe
+TIME_FROM_SENSOR_TO_SERVO = 0.4    # Temps pour que le bras passe du capteur BW au servo qui le stoppe
 
 STOP_SERVO_OPEN_ANGLE = 180         # Angle où le servo bloqueur NE bloque PAS le bras
 STOP_SERVO_BLOCK_ANGLE = 120        # Angle où le servo bloqueur bloque le bras
@@ -46,6 +46,6 @@ PUSH_SERVO_REST_ANGLE = 100           # Position de repos
 PUSH_SERVO_PUSH_ANGLE = 0         # Position qui pousse un palais dans le système
 
 LED_PATERN = [[1,0,0], [0,1,0], [0,0,1]]
-LED_LOOP_DELAY = 1000
+LED_LOOP_DELAY = 1
 
 COLORS = [[100,0,0], [0,0,100]]

@@ -30,7 +30,11 @@ def deco_led_setup():
             set_led_color(led_index=i)
         else:
             set_led_color(led_index=i, rgb_color=stg.COLORS[random.randint(0, len(stg.COLORS) - 1)])
-    
+
+def reset_led():
+    deco_led.value = True
+    for i in range(2):
+        set_led_color(led_index=i, rgb_color=stg.COLORS[i])
         
 
 def load_puck_from_hopper() -> bool:
@@ -40,7 +44,7 @@ def load_puck_from_hopper() -> bool:
     """
 
     print("reserv value : " + str(reservoir_sensor.get_value()))
-    if reservoir_sensor.get_value() > (reservoir_empty_threshold * (75/100)):
+    if reservoir_sensor.get_value() > (reservoir_empty_threshold * (65/100)):
         
         return False
     servo3.set_angle(stg.PUSH_SERVO_PUSH_ANGLE)
@@ -78,7 +82,7 @@ def accelerate_arm_to_throw_speed() -> bool:
         motor_speed = calculate_speed_profile(step_index)
         motor1.set_speed(motor_speed * stg.MOTOR1_DIRECTION)
         step_index += 1
-        time.sleep(0.01)
+        time.sleep(0.015)
         print("Vitesse bras :", motor_speed)
 
     # Vitesse finale (léger "overdrive" pour le tir)
@@ -97,7 +101,7 @@ def stop_arm_with_servo_and_reset() -> None:
     # Attente du passage du bras devant le capteur ultrason
     while distance_sensor.get_distance() > stg.DISTANCE_SENSOR_DETECT_VALUE:
         print("Distance (fin de tir) :", distance_sensor.get_distance())
-        time.sleep(0.005)
+        time.sleep(0.001)
 
     # Bloquer le bras
     servo2.set_angle(stg.STOP_SERVO_BLOCK_ANGLE)
@@ -119,6 +123,7 @@ def launch_one_puck() -> bool:
     3. Accélérer le bras jusqu'à la vitesse de tir.
     4. Stopper et réinitialiser le système.
     """
+    reset_led()
     if load_puck_from_hopper():
         time.sleep(1)
 
@@ -214,7 +219,8 @@ def handle_launch_button():
             if not launch_one_puck():
                 break
             # Ajouter ici un délai si nécessaire entre chaque tir
-        time.sleep(0.5)
+        play_music("veridisquo")
+        time.sleep(0.2)
 
 
 # ------------------------
@@ -229,7 +235,7 @@ reservoir_empty_threshold = (reservoir_empty_threshold_1 + reservoir_empty_thres
 print("reservoir_empty_treshold :" + str(reservoir_empty_threshold))
 play_music("jump_up")
 last_led_time = time.time()
-
+deco_led_setup()
 while True:
     current_time = time.time()
 
